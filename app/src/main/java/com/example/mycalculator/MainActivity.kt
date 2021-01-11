@@ -11,6 +11,7 @@ class MainActivity : AppCompatActivity() {
 
     private var lastNumeric = false
     private var lastDot = false
+    private var lastEqual = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,8 +19,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onDigit(view: View) {
-        tvInput.append((view as AppCompatButton).text)
-        lastNumeric = true
+        if(!lastEqual) {
+            tvInput.append((view as AppCompatButton).text)
+            lastNumeric = true
+        }
     }
 
     fun onClear(view: View) {
@@ -58,6 +61,8 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         tvInput.text = removeZeroAfterDot((one.toDouble() - two.toDouble()).toString())
+
+                        lastEqual = true
                     }
                     tvValue.contains("+") -> {
                         val splitValue = tvValue.split("+")
@@ -70,6 +75,8 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         tvInput.text = removeZeroAfterDot((one.toDouble() + two.toDouble()).toString())
+
+                        lastEqual = true
                     }
                     tvValue.contains("/") -> {
                         val splitValue = tvValue.split("/")
@@ -82,6 +89,8 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         tvInput.text = removeZeroAfterDot((one.toDouble() / two.toDouble()).toString())
+
+                        lastEqual = true
                     }
                     tvValue.contains("*") -> {
                         val splitValue = tvValue.split("*")
@@ -94,6 +103,8 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         tvInput.text = removeZeroAfterDot((one.toDouble() * two.toDouble()).toString())
+
+                        lastEqual = true
                     }
                 }
 
